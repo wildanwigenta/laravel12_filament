@@ -8,10 +8,15 @@ use App\Models\Post;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Textarea;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+
+
 
 class PostResource extends Resource
 {
@@ -23,7 +28,8 @@ class PostResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make('title')->required(),
+                Textarea::make('content'),
             ]);
     }
 
@@ -31,7 +37,8 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('title')->sortable()->searchable(),
+                TextColumn::make('created_at')->dateTime(),
             ])
             ->filters([
                 //
