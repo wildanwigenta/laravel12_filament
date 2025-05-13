@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
 
 class CategoryResource extends Resource
 {
@@ -23,7 +24,27 @@ class CategoryResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('name')
+                    ->required()
+                    ->maxLength(255)
+                    ->label('Nama Kategori')
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(function (string $operation, $state, Forms\Set $set) {
+                        if ($operation === 'create') {
+                            $set('slug', Str::slug($state));
+                        }
+                    }),
+                Forms\Components\TextInput::make('slug')
+                    ->required()
+                    ->maxLength(255)
+                    ->label('Slug')
+                    ->unique(ignoreRecord: true),
+                Forms\Components\Textarea::make('description')
+                    ->maxLength(65535)
+                    ->label('Deskripsi'),
+                Forms\Components\Toggle::make('is_visible')
+                    ->label('Visible')
+                    ->default(true)
             ]);
     }
 
