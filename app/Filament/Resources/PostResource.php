@@ -30,7 +30,12 @@ class PostResource extends Resource
             ->schema([
                 TextInput::make('title')->required(),
                 Textarea::make('content'),
+                TextInput::make('slug')
+                    ->required()
+                    ->unique(Post::class, 'slug', ignoreRecord: true)
+                    ->maxLength(255),
             ]);
+
     }
 
     public static function table(Table $table): Table
