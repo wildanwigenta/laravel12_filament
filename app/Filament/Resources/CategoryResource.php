@@ -44,7 +44,10 @@ class CategoryResource extends Resource
                     ->label('Deskripsi'),
                 Forms\Components\Toggle::make('is_visible')
                     ->label('Visible')
-                    ->default(true)
+                    ->default(true),
+                Forms\Components\Toggle::make('is_featured')
+                    ->label('Featured')
+                    ->default(false),
             ]);
     }
 
