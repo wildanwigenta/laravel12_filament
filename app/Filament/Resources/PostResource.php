@@ -34,6 +34,22 @@ class PostResource extends Resource
                     ->required()
                     ->unique(Post::class, 'slug', ignoreRecord: true)
                     ->maxLength(255),
+                Forms\Components\Toggle::make('is_published')
+                    ->label('Published')
+                    ->default(false)
+                    ->helperText('Set to true to make the post visible on the frontend.'),
+                Forms\Components\Select::make('category_id')
+                    ->relationship('category', 'name')
+                    ->label('Category')
+                    ->required()
+                    ->searchable()
+                    ->preload()
+                    ->placeholder('Select a category'),
+                Forms\Components\TextInput::make('author_name')
+                    ->label('Author Name')
+                    ->required()
+                    ->maxLength(255)
+                    ->placeholder('Enter author name'),
             ]);
 
     }

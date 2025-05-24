@@ -83,6 +83,7 @@ class CategoryResource extends Resource
                             ->label('Dibuat Dari'),
                         Forms\Components\DatePicker::make('created_until')
                             ->label('Dibuat Sampai'),
+
                     ])
                     ->query(function (Builder $query, array $data): Builder {
                         return $query
@@ -94,6 +95,7 @@ class CategoryResource extends Resource
                                 $data['created_until'],
                                 fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
                             );
+                            
                     })
             ])
             ->actions([
